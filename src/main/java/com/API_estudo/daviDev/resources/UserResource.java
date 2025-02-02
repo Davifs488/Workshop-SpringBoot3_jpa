@@ -1,23 +1,38 @@
 package com.API_estudo.daviDev.resources;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.API_estudo.daviDev.entities.User;
+import com.API_estudo.daviDev.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
 	
+	@Autowired
+	private UserService service;
+	
 	@GetMapping
-	public ResponseEntity<User> findAll(){
+	public ResponseEntity<List<User>> findAll(){
 		
-		User u = new User(1L,"Mariola", "mar@yahoo.com", "66666666", "258963");
-		
-		return ResponseEntity.ok().body(u);
+	List<User> list = service.findAll();
+		 
+		return ResponseEntity.ok().body(list);
 		
 	}
 
+	@GetMapping(value= "/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id){
+		
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
 }
