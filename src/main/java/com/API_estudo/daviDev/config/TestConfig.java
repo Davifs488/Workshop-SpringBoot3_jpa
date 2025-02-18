@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import com.API_estudo.daviDev.entities.Category;
 import com.API_estudo.daviDev.entities.Order;
 import com.API_estudo.daviDev.entities.OrderItem;
+import com.API_estudo.daviDev.entities.Payment;
 import com.API_estudo.daviDev.entities.Product;
 import com.API_estudo.daviDev.entities.User;
 import com.API_estudo.daviDev.entities.enums.OrderStatus;
@@ -86,6 +87,13 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 
 	}
 
